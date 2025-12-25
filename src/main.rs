@@ -16,6 +16,13 @@ fn main() {
         .read_line(&mut choice)
         .expect("Failed to read input");
 
-    println!("You chose: {}", choice.trim());
+     match choice.trim() {
+        "1" => println!("Add Task selected"),
+        "2" => println!("View Tasks selected"),
+        "3" => println!("Mark Task as Completed selected"),
+        "4" => println!("Delete Task selected"),
+        "5" => println!("Exiting application..."),
+        _ => println!("Invalid choice, please try again"),
+    }
 }
 
