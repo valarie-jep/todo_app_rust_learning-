@@ -7,6 +7,7 @@ struct Task {
 
 fn main() {
     let mut tasks: Vec<Task> = Vec::new();
+
     'menu: loop {
         println!("\n--- Rust To-Do List ---");
         println!("1. Add a Task");
@@ -18,13 +19,27 @@ fn main() {
         println!("\nEnter your choice:");
 
         let mut choice = String::new();
-
         io::stdin()
             .read_line(&mut choice)
             .expect("Failed to read input");
 
         match choice.trim() {
-            "1" => println!("Add Task selected"),
+            "1" => {
+                println!("Enter task description:");
+
+                let mut description = String::new();
+                io::stdin()
+                    .read_line(&mut description)
+                    .expect("Failed to read input");
+
+                let task = Task {
+                    description: description.trim().to_string(),
+                    completed: false,
+                };
+
+                tasks.push(task);
+                println!("Task added successfully!");
+            }
             "2" => println!("View Tasks selected"),
             "3" => println!("Mark Task as Completed selected"),
             "4" => println!("Delete Task selected"),
@@ -36,4 +51,5 @@ fn main() {
         }
     }
 }
+
 
