@@ -1,6 +1,12 @@
 use std::io;
 
+struct Task {
+    description: String,
+    completed: bool,
+}
+
 fn main() {
+    let mut tasks: Vec<Task> = Vec::new();
     'menu: loop {
         println!("\n--- Rust To-Do List ---");
         println!("1. Add a Task");
