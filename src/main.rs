@@ -40,7 +40,17 @@ fn main() {
                 tasks.push(task);
                 println!("Task added successfully!");
             }
-            "2" => println!("View Tasks selected"),
+            "2" => {
+                if tasks.is_empty() {
+                    println!("No tasks available.");
+                } else {
+                    println!("\nYour Tasks:");
+                    for (index, task) in tasks.iter().enumerate() {
+                        let status = if task.completed { "✓" } else { " " };
+                        println!("{}. [{}] {}", index + 1, status, task.description);  
+                    }
+                }
+            }
             "3" => println!("Mark Task as Completed selected"),
             "4" => println!("Delete Task selected"),
             "5" => {
