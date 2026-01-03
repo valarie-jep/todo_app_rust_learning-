@@ -51,7 +51,40 @@ fn main() {
                     }
                 }
             }
-            "3" => println!("Mark Task as Completed selected"),
+            "3" => {
+                if tasks.is_empty() {
+                    println!("No tasks to mark as completed.");
+                } else {
+                    println!("\nSelect a task number to mark as completed:");
+
+                    for (index, task) in tasks.iter().enumerate() {
+                        let status = if task.completed { "✓" } else { " " };
+                        println!("{}. [{}] {}", index + 1, status, task.description);
+                    }
+
+                    let mut input = String::new();
+                    io::stdin()
+                        .read_line(&mut input)
+                        .expect("Failed to read input");
+
+                    let task_number: usize = match input.trim().parse() {
+                        Ok(num) => num,
+                        Err(_) => {
+                            println!("Invalid number.");
+                            continue;
+                        }
+                    };
+
+                    if task_number == 0 || task_number > tasks.len() {
+                        println!("Task number out of range.");
+                    } else {
+                        let task = &mut tasks[task_number - 1];
+                        task.completed = true;
+                        println!("Task marked as completed!");
+                    }
+                }   
+            }
+
             "4" => println!("Delete Task selected"),
             "5" => {
                 println!("Goodbye!");
