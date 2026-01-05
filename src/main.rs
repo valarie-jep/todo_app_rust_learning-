@@ -85,7 +85,39 @@ fn main() {
                 }   
             }
 
-            "4" => println!("Delete Task selected"),
+            "4" => {
+                if tasks.is_empty() {
+                    println!("No tasks to delete.");
+                } else {
+                    println!("\nSelect a task number to delete:");
+
+                    for (index, task) in tasks.iter().enumerate() {
+                        let status = if task.completed { "✓" } else { " " };
+                        println!("{}. [{}] {}", index + 1, status, task.description);
+                   }
+
+                   let mut input = String::new();
+                   io::stdin()
+                       .read_line(&mut input)
+                       .expect("Failed to read input");
+
+                    let task_number: usize = match input.trim().parse() {
+                        Ok(num) => num,
+                        Err(_) => {
+                            println!("Invalid number.");
+                            continue;
+                       }
+                    };
+
+                    if task_number == 0 || task_number > tasks.len() {
+                        println!("Task number out of range.");
+                    } else {
+                        tasks.remove(task_number - 1);
+                        println!("Task deleted successfully!");
+                    }
+                }
+       }
+
             "5" => {
                 println!("Goodbye!");
                 break 'menu;
